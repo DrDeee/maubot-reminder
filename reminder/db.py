@@ -80,7 +80,7 @@ class ReminderDatabase:
             try:
                 self.tz_cache[user_id] = pytz.timezone(next(rows)[0])
             except (pytz.UnknownTimeZoneError, StopIteration, IndexError):
-                self.tz_cache[user_id] = default_tz or pytz.UTC
+                self.tz_cache[user_id] = default_tz or pytz.CET
             return self.tz_cache[user_id]
 
     def set_locales(self, user_id: UserID, locales: List[str]) -> None:
@@ -98,7 +98,7 @@ class ReminderDatabase:
             try:
                 self.locale_cache[user_id] = next(rows)[0].split(",")
             except (StopIteration, IndexError):
-                self.locale_cache[user_id] = ["en_iso"]
+                self.locale_cache[user_id] = ["de_DE"]
             return self.locale_cache[user_id]
 
     def all_for_user(self, user_id: UserID, room_id: Optional[RoomID] = None
